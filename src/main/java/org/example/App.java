@@ -3,6 +3,7 @@ package org.example;
 import org.example.dao.StudentDao;
 import org.example.entities.Student;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -16,7 +17,8 @@ public class App {
     public static void main( String[] args ) {
         System.out.println( "Program started..." );
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("jdbcConfig.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("jdbcConfig.xml");
+        ApplicationContext context = new AnnotationConfigApplicationContext(JdbcConfig.class);
         StudentDao studentDao = context.getBean("studentDaoImpl", StudentDao.class);
 
 // Insert
@@ -47,10 +49,10 @@ public class App {
 //        System.out.println("Student : " + student);
 
 // Select Multiple Rows
-//        List<Student> allStudents = studentDao.getAllStudents();
-//        for (Student s: allStudents) {
-//            System.out.println(s);
-//        }
+        List<Student> allStudents = studentDao.getAllStudents();
+        for (Student s: allStudents) {
+            System.out.println(s);
+        }
 
     }
 }
